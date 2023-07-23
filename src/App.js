@@ -32,6 +32,7 @@ function App() {
   };
 
   const drop = (event, column) => {
+
     event.preventDefault();
     const taskId = event.dataTransfer.getData("text");
     const taskElement = document.getElementById(taskId);
@@ -41,32 +42,28 @@ function App() {
     if (role === "developer") {
       if (currentColumn === "todo" && column === "in-dev") {
         document.getElementById(column).appendChild(taskElement);
-        updateTaskColumn(taskId, column);
       } else if (currentColumn === "in-dev" && column === "in-testing") {
         document.getElementById(column).appendChild(taskElement);
-        updateTaskColumn(taskId, column);
       } else if (currentColumn === "in-testing" && column === "in-dev") {
         document.getElementById(column).appendChild(taskElement);
-        updateTaskColumn(taskId, column);
       } else if (currentColumn === "in-dev" && column === "todo") {
         document.getElementById(column).appendChild(taskElement);
-        updateTaskColumn(taskId, column);
       }
     } else if (role === "tester") {
       if (currentColumn === "in-testing" && column === "completed") {
         document.getElementById(column).appendChild(taskElement);
-        updateTaskColumn(taskId, column);
       } else if (currentColumn === "completed" && column === "in-testing") {
         document.getElementById(column).appendChild(taskElement);
-        updateTaskColumn(taskId, column);
       }
     }
+
+    updateTaskColumn(taskId, column);
   };
 
   const updateTaskColumn = (taskId, column) => {
-    const updatedTasks = { ...tasks };
-    updatedTasks[taskId].column = column;
-    setTasks(updatedTasks);
+    const tasks = JSON.parse(localStorage.getItem("tasks")) || {};
+    tasks[taskId].column = column;
+    localStorage.setItem("tasks", JSON.stringify(tasks));
   };
 
   const addNewTask = () => {
@@ -110,7 +107,7 @@ function App() {
     setTasks({});
   };
 
-  
+
   return (
     <div>
       <RoleSelector switchRole={switchRole} addNewTask={addNewTask} deleteAllTask={deleteAllTask} />

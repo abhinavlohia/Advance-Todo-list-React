@@ -1,11 +1,11 @@
-import React from 'react';
+import React from "react";
 
-const Popup = ({ heading, description, onClose }) => {
+const Popup = ({ heading, description, closePopup }) => {
   return (
     <div className="popup">
-      <h2>{heading}</h2>
-      <p>{description}</p>
-      <button onClick={onClose}>Close</button>
+      <h2 id="popup-heading">{heading}</h2>
+      <p id="popup-description">{description}</p>
+      <button onClick={closePopup}>Close</button>
     </div>
   );
 };

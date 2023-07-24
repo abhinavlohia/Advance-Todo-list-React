@@ -190,7 +190,7 @@
 
   height: 40%;
   width: 22%;
-  display: none;
+  display: block;
   position: fixed;
   top: 50%;
   left: 50%;
